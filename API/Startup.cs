@@ -13,10 +13,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-//using MediatR;
-//using Application.Activities;
-//using Application.Core;
-//using AutoMapper;
+using MediatR;
+using Application.Activities;
+using Application.Core;
+using AutoMapper;
+using API.Extension;
 
 namespace API
 {
@@ -34,15 +35,8 @@ namespace API
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-            });
-
-            services.AddDbContext<DataContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddCors();
+            services.AddApplicationServices(Configuration);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
